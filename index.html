@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <meta charset="UTF-8">
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      background: black;
+      overflow: hidden;
+      touch-action: manipulation;
+    }
+
+    #overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      cursor: pointer;
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.4s ease-out;
+    }
+
+    video.playing {
+      opacity: 1;
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="overlay"></div>
+
+<video id="video" playsinline preload="auto">
+  <source src="ILYJ.mp4" type="video/mp4">
+</video>
+
+<script>
+  const overlay = document.getElementById("overlay");
+  const video = document.getElementById("video");
+
+  overlay.addEventListener("click", () => {
+    overlay.remove();
+    video.style.display = "block";
+
+    setTimeout(() => {
+      video.play().then(() => {
+        video.classList.add("playing");
+      }).catch(err => {
+        console.log("Playback error:", err);
+      });
+    }, 3000); // 3-second comedic delay
+  });
+</script>
+
+</body>
+</html>
